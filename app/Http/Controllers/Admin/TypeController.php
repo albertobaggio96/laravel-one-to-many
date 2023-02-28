@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Type;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
+    protected $rules = [
+        'type'=> 'required|min:2|max:10|unique:types,type'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +42,8 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        $data= $request->all();
+        $rules= $this->rules;
+        $data= $request->validate($rules);
 
         $newType = new Type();
         $newType->fill($data);
@@ -78,7 +83,9 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        $data = $request->all();
+        $rules= $this->rules;
+        $rules['type']= ['requered', 'string', 'min:2', 'max:10', Rule::unique('types')->ignore($type->type)];
+        $data= $request->validate($rules);
 
         $type->update($data);
 
