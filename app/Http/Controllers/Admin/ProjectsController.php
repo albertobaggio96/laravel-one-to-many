@@ -16,7 +16,8 @@ class ProjectsController extends Controller
     protected $rules=[
         "title"=>"required|string|min:2|max:100|unique:projects,title",
         "date"=>"required|date",
-        "preview"=>"required|image|max:300"   
+        "preview"=>"required|image|max:300",
+        "type_id"=> "required|exists:types,id"
     ];
     protected $errorsMessage=[
         "title.required"=>"Title è un campo obbligatorio",
@@ -29,7 +30,12 @@ class ProjectsController extends Controller
         
         "preview.required"=>"Preview è un campo obbligatorio",
         "preview.img"=>"Preview deve essere un immagine valido",
-        "preview.max"=>"Preview non può avere più di 300 kilobytes"
+        "preview.max"=>"Preview non può avere più di 300 kilobytes",
+
+        "type_id.required"=>"Type è un campo obbligatorio",
+        "type_id.exists"=>"Type è deve esistere sul db",
+
+
     ];
     /**
      * Display a listing of the resource.
