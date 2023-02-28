@@ -9,8 +9,8 @@
     @method($method)
 
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Title</label>
-      <input type="text" class="form-control @error('title') is-invalid @enderror" maxlength="100" name="title" value="{{old('title', $project->title) }}">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" id="title" class="form-control @error('title') is-invalid @enderror" maxlength="100" name="title" value="{{old('title', $project->title) }}">
       @error('title')
           <div class="invalid-feedback">
             {{ $message }}
@@ -18,8 +18,8 @@
       @enderror
     </div>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">preview</label>
-      <input type="file" class="form-control @error('preview') is-invalid @enderror" maxlength="250" name="preview" value="{{old('preview', $project->preview) }}">
+      <label for="preview" class="form-label">preview</label>
+      <input type="file" id="preview" class="form-control @error('preview') is-invalid @enderror" maxlength="250" name="preview" value="{{old('preview', $project->preview) }}">
       @error('preview')
           <div class="invalid-feedback">
             {{ $message }}
@@ -27,13 +27,21 @@
       @enderror
     </div>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">date</label>
-      <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{old('date', $project->date) }}">
+      <label for="date" class="form-label">date</label>
+      <input type="date" id="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{old('date', $project->date) }}">
       @error('date')
           <div class="invalid-feedback">
             {{ $message }}
           </div>
       @enderror
+    </div>
+    <div class="mb-3">
+      <label for="type">Select type of project</label>
+      <select id="type" class="form-select" name="type_id">
+        @foreach ($types as $type)
+            <option value="{{ $type->id }}" {{ old('type_id', $project->type_id) == $type->id ? 'selected' : '' }}>{{ $type->type }}</option>
+        @endforeach
+      </select>
     </div>
     <button type="submit" class="btn btn-primary">CREATE</button>
   </form>
