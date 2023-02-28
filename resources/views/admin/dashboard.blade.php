@@ -4,7 +4,8 @@
 <section id="guest-projects">
     <div class="container">
         <div class="row">
-          <div><a href="{{ route("admin.project.index") }}">vai alla lista project</a></div>
+          <div><a href="{{ route("admin.projects.index") }}">vai alla lista project</a></div>
+          {{-- <div><a href="{{ route("admin.type.index") }}">modifica i type</a></div> --}}
         @foreach ($projects as $project)
         <article class="flip-card col-4 g-5">
           <div class="flip-card-inner">

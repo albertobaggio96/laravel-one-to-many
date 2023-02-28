@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ProjectsController as AdminProjectsController;
-use App\Http\Controllers\Guest\ProjectsController as GuestProjectsController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,17 +22,18 @@ Route::get('/', function () {
 });
 
 Route::prefix("guest")->name("guest.")->group(function(){
-    Route::post('/projects/search', [GuestProjectsController::class, "search"])->name("search");
-    Route::resource('/projects', GuestProjectsController::class);
+    Route::post('/projects/search', [GuestProjectController::class, "search"])->name("search");
+    Route::resource('/projects', GuestProjectController::class);
 });
 
 Route::middleware(['auth', 'verified'])->prefix("admin")->name('admin.')->group(function(){
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
-    Route::post('/projects/search', [AdminProjectsController::class, "search"])->name("search");
-    Route::get("/project/trashed",  [AdminProjectsController::class, "trashed"] )->name("trashed");
-    Route::get("/project/{slug}/restore", [AdminProjectsController::class, "restore"])->name("restore");
-    Route::delete("/project/{slug}/force-delete", [AdminProjectsController::class, "forceDelete"])->name("force-delete");
-    Route::resource("/project", AdminProjectsController::class);
+    Route::post('/projects/search', [AdminProjectController::class, "search"])->name("search");
+    Route::get("/projects/trashed",  [AdminProjectController::class, "trashed"] )->name("trashed");
+    Route::get("/projects/{slug}/restore", [AdminProjectController::class, "restore"])->name("restore");
+    Route::delete("/projects/{slug}/force-delete", [AdminProjectController::class, "forceDelete"])->name("force-delete");
+    Route::resource("/projects", AdminProjectController::class);
+    Route::resource("/types", AdminProjectController::class);
 });
 
 Route::middleware('auth')->group(function () {

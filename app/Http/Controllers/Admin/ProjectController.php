@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class ProjectsController extends Controller
+class ProjectController extends Controller
 {
     protected $rules=[
         "title"=>"required|string|min:2|max:100|unique:projects,title",
