@@ -23,4 +23,8 @@ class Project extends Model
     public function isNotUrl(){
         return !filter_var($this->preview, FILTER_VALIDATE_URL);
     }
+
+    public function type(){
+        return $this->belongsTo(Type::class);
+    }
 }
